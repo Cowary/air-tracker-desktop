@@ -2,37 +2,35 @@ package org.cowary
 
 import air_tracker_desktop.composeapp.generated.resources.Res
 import air_tracker_desktop.composeapp.generated.resources.compose_multiplatform
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -41,24 +39,19 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
-import org.openapitools.client.models.AnimeDtoRq
-import org.openapitools.client.models.AnimeDtoRs
 import org.openapitools.client.models.AnimeRs
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import kotlin.time.Instant
+import org.openapitools.client.models.MovieDtoRq
+import org.openapitools.client.models.MovieRs
 
-class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
+class EditMovieScreen(private val integrationId: Long) : AirScreen(), Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val animeService = remember { ApiService() }
+        val movieService = remember { ApiService() }
 
         // Состояния для данных
-        var animeRs by remember { mutableStateOf<AnimeRs?>(null) }
-        var animeRq by remember { mutableStateOf<AnimeDtoRq?>(null) }
+        var movieRs by remember { mutableStateOf<MovieRs?>(null) }
         var isLoading by remember { mutableStateOf(true) }
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var isSaving by remember { mutableStateOf(false) }
@@ -66,36 +59,31 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
 
         // Поля без редактирования
         var id by remember { mutableStateOf<Int?>(null) }
-        var usrId by remember { mutableStateOf<Int?>(3) }
+        var usrId by remember { mutableStateOf<Int?>(null) }
 //        var shikiId by remember { mutableStateOf<Int?>(null) }
         // Поля для редактирования
         var title by remember { mutableStateOf(TextFieldValue("")) }
         var originalTitle by remember { mutableStateOf(TextFieldValue("")) }
         var status by remember { mutableStateOf(TextFieldValue("")) }
         var score by remember { mutableStateOf(TextFieldValue("")) }
-        var episodes by remember { mutableStateOf(TextFieldValue("")) }
         var duration by remember { mutableStateOf(TextFieldValue("")) }
         var releaseDate by remember { mutableStateOf(TextFieldValue("")) }
-        var episodesEnd by remember { mutableStateOf(TextFieldValue("")) }
         var endDate by remember { mutableStateOf(TextFieldValue("")) }
-//        var endDate by remember { mutableStateOf(LocalDate.now()) }
 
         val coroutineScope = rememberCoroutineScope()
 
         LaunchedEffect(integrationId) {
-            loadAnimeData(animeService, integrationId, { animeRs = it }, { isLoading = false }, { errorMessage = it })
+            loadMovieData(movieService, integrationId, { movieRs = it }, { isLoading = false }, { errorMessage = it })
         }
 
-        LaunchedEffect(animeRs) {
-            animeRs?.media?.let { media ->
-                title = TextFieldValue(media.title ?: "")
+        LaunchedEffect(movieRs) {
+            movieRs?.media?.let { media ->
+                title = TextFieldValue(media.title?: "")
                 originalTitle = TextFieldValue(media.originalTitle ?: "")
-                status = TextFieldValue(media.status)
+                status = TextFieldValue(media.status?: "")
                 score = TextFieldValue(media.score?.toString() ?: "")
-                episodes = TextFieldValue(media.episodes?.toString() ?: "")
                 duration = TextFieldValue(media.duration?.toString() ?: "")
-                releaseDate = TextFieldValue(media.releaseDate ?: "")
-                episodesEnd = TextFieldValue(media.episodesEnd?.toString() ?: "")
+//                releaseDate = TextFieldValue(media.?: "")
                 endDate = TextFieldValue(media.endDate ?: "")
             }
         }
@@ -105,7 +93,7 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 .fillMaxSize()
         ) {
             TopAppBar(
-                title = { Text("Редактирование аниме") },
+                title = { Text("Редактирование фильма") },
                 navigationIcon = {
                     IconButton(onClick = { navigator.pop() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Назад")
@@ -129,10 +117,10 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                             isLoading = true
                             errorMessage = null
                             coroutineScope.launch {
-                                loadAnimeData(
-                                    animeService,
+                                loadMovieData(
+                                    movieService,
                                     integrationId,
-                                    { animeRs = it },
+                                    { movieRs = it },
                                     { isLoading = false },
                                     { errorMessage = it })
                             }
@@ -144,9 +132,8 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
 
                 // Основная форма
                 else -> {
-
-                    AnimeEditForm(
-                        animeRs = animeRs,
+                    MovieEditForm(
+                        movieRs = movieRs,
                         originalTitle = originalTitle,
                         onOriginalTitleChange = { originalTitle = it },
                         title = title,
@@ -155,15 +142,10 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                         onStatusChange = { status = it },
                         score = score,
                         onScoreChange = { score = it },
-                        episodes = episodes,
-                        onEpisodesChange = { episodes = it },
                         duration = duration,
                         onDurationChange = { duration = it },
                         releaseDate = releaseDate,
                         onReleaseDateChange = { releaseDate = it },
-                        episodesEnd = episodesEnd,
-                        onEpisodesEndChange = { episodesEnd = it },
-//                        endDate = endDate,
                         endDate = endDate,
                         onEndDateChange = { endDate = it },
                         isSaving = isSaving,
@@ -173,22 +155,9 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                                 isSaving = true
                                 saveSuccess = false
 
-                                val updatedMedia = AnimeDtoRq(
-                                    originalTitle = originalTitle.text,
-                                    title = title.text,
-                                    status = status.text,
-                                    releaseDate = releaseDate.text,
-                                    shikiId = integrationId.toInt(),
-                                    usrId = usrId?.toLong()
-                                        ?: throw IllegalStateException("User ID is missing"),
-                                    score = score.text.toIntOrNull(),
-                                    episodes = episodes.text.toIntOrNull(),
-                                    duration = duration.text.toIntOrNull(),
-                                    episodesEnd = episodesEnd.text.toIntOrNull(),
-                                    endDate = endDate.text,
-                                )
+                              val updatedMedia  = MovieDtoRq(title = title.text, status = status.text, score = score.text.toInt(), releaseYear = releaseDate.text.toInt(), originalTitle = originalTitle.text, endDate = endDate.text, duration = duration.text.toIntOrNull(), integrationId = integrationId.toInt())
 
-                                val success = animeService.saveAnime(updatedMedia)
+                                val success = movieService.saveMovie(updatedMedia)
                                 isSaving = false
                                 saveSuccess = success
 
@@ -206,17 +175,16 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
         }
     }
 
-    // Функция загрузки данных
-    suspend fun loadAnimeData(
+    suspend fun loadMovieData(
         service: ApiService,
         id: Long,
-        onSuccess: (AnimeRs) -> Unit,
+        onSuccess: (MovieRs) -> Unit,
         onLoadingComplete: () -> Unit,
         onError: (String) -> Unit
     ) {
         try {
-            val animeRs = service.getAnime(id.toInt())
-            onSuccess(animeRs)
+            val movieRs = service.getMovie(id.toInt())
+            onSuccess(movieRs)
         } catch (e: Exception) {
             onError(e.message ?: "Неизвестная ошибка")
         } finally {
@@ -225,8 +193,8 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
     }
 
     @Composable
-    private fun AnimeEditForm(
-        animeRs: AnimeRs?,
+    private fun MovieEditForm(
+        movieRs: MovieRs?,
         originalTitle: TextFieldValue,
         onOriginalTitleChange: (TextFieldValue) -> Unit,
         title: TextFieldValue,
@@ -235,14 +203,10 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
         onStatusChange: (TextFieldValue) -> Unit,
         score: TextFieldValue,
         onScoreChange: (TextFieldValue) -> Unit,
-        episodes: TextFieldValue,
-        onEpisodesChange: (TextFieldValue) -> Unit,
         duration: TextFieldValue,
         onDurationChange: (TextFieldValue) -> Unit,
         releaseDate: TextFieldValue,
         onReleaseDateChange: (TextFieldValue) -> Unit,
-        episodesEnd: TextFieldValue,
-        onEpisodesEndChange: (TextFieldValue) -> Unit,
         endDate: TextFieldValue,
         onEndDateChange: (TextFieldValue) -> Unit,
         isSaving: Boolean,
@@ -264,7 +228,7 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-                animeRs?.media?.title?.let { title ->
+                movieRs?.media?.title?.let { title ->
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
@@ -306,15 +270,6 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 IntegerOnlyTextField(
-                    label = "Кол-во эпизодов",
-                    value = episodes.text,
-                    onValueChange = onEpisodesChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                IntegerOnlyTextField(
                     label = "Длительность эпизода",
                     value = duration.text,
                     onValueChange = onDurationChange,
@@ -323,17 +278,10 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
-                DateSelectionField(
-                    label = "Дата выхода",
-                    selectedDate = releaseDate,
-                    onDateSelected = onReleaseDateChange,
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
                 IntegerOnlyTextField(
-                    label = "Кол-во просмотренных эпизодов",
-                    value = episodesEnd.text,
-                    onValueChange = onEpisodesEndChange,
+                    label = "Дата выхода",
+                    value = releaseDate.text,
+                    onValueChange = onReleaseDateChange,
                     modifier = Modifier.fillMaxWidth(),
                     maxValue = 10000
                 )
@@ -386,14 +334,14 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                animeRs?.posterUrl?.let { posterUrl ->
+                movieRs?.posterUrl?.let { posterUrl ->
                     if (posterUrl.isNotEmpty()) {
                         println("Получен URL постера: $posterUrl")
                         println("Попытка загрузить изображение...")
 
                         AsyncImage(
-                            model = animeRs.posterUrl,
-                            contentDescription = "Постер аниме",
+                            model = movieRs.posterUrl,
+                            contentDescription = "Постер фильма",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(400.dp)

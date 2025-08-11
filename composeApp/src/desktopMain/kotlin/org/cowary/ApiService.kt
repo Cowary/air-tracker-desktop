@@ -16,11 +16,16 @@ import org.openapitools.client.infrastructure.ApiClient
 import io.ktor.client.plugins.logging.*
 import io.ktor.http.hostIsIp
 import org.openapitools.client.apis.AnimeControllerApi
-import org.openapitools.client.models.AnimeDto
+import org.openapitools.client.apis.MovieControllerApi
+import org.openapitools.client.models.AnimeDtoRq
+import org.openapitools.client.models.AnimeDtoRs
 import org.openapitools.client.models.AnimeRs
 import org.openapitools.client.models.FindMediaRs
 import org.openapitools.client.models.Finds
-import org.openapitools.client.models.MediaDto
+import org.openapitools.client.models.MediaDtoRs
+import org.openapitools.client.models.MovieDtoRq
+import org.openapitools.client.models.MovieDtoRs
+import org.openapitools.client.models.MovieRs
 import kotlin.text.get
 
 
@@ -50,6 +55,8 @@ class ApiService {
     private val usersApi = MediaListControllerApi("http://localhost:8080", client)
     private val animeApi = AnimeControllerApi("http://localhost:8080", client)
 
+    private val movieApi = MovieControllerApi("http://localhost:8080", client)
+
     suspend fun fetchData(): String {
 //        val result = client.get {
 //            url {
@@ -67,19 +74,30 @@ class ApiService {
         }
     }
 
-    suspend fun fetchAll(): List<MediaDto> {
+    suspend fun fetchAll(): List<MediaDtoRs> {
         return try {
             val response = usersApi.getMediaList(3)
-            response.response.body() as List<MediaDto>
+            response.response.body() as List<MediaDtoRs>
         } catch (e: Exception) {
             println("Ошибка: ${e.message}")
             "Ошибка подключения"
-        } as List<MediaDto>
+        } as List<MediaDtoRs>
     }
 
     suspend fun fetchAnime(text: String): List<Finds> {
         return try {
             val response = animeApi.find4(text)
+            val rs = response.response.body() as FindMediaRs
+            rs.findMedia
+        } catch (e: Exception) {
+            println("Ошибка: ${e.message}")
+            "Ошибка подключения"
+        } as List<Finds>
+    }
+
+    suspend fun fetchMovie(text: String): List<Finds> {
+        return try {
+            val response = movieApi.find2(text)
             val rs = response.response.body() as FindMediaRs
             rs.findMedia
         } catch (e: Exception) {
@@ -99,10 +117,32 @@ class ApiService {
         } as AnimeRs
     }
 
-    suspend fun saveAnime(text: AnimeDto): Boolean {
+    suspend fun getMovie(text: Int): MovieRs {
+        return try {
+            val response = movieApi.getByIntegrationID2(text)
+            val rs = response.response.body() as MovieRs
+            rs
+        } catch (e: Exception) {
+            println("Ошибка: ${e.message}")
+            "Ошибка подключения"
+        } as MovieRs
+    }
+
+    suspend fun saveAnime(text: AnimeDtoRq): Boolean {
         return try {
             val response = animeApi.postTitle6(text)
-            val rs = response.response.body() as AnimeRs
+            val rs = response.response.body() as AnimeDtoRs
+            true
+        } catch (e: Exception) {
+            println("Ошибка: ${e.message}")
+            "Ошибка подключения"
+        } as Boolean
+    }
+
+    suspend fun saveMovie(text: MovieDtoRq): Boolean {
+        return try {
+            val response = movieApi.postTitle2(text)
+            val rs = response.response.body() as MovieDtoRs
             true
         } catch (e: Exception) {
             println("Ошибка: ${e.message}")

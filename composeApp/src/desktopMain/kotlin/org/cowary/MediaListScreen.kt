@@ -20,7 +20,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.launch
-import org.openapitools.client.models.MediaDto
+import org.openapitools.client.models.MediaDtoRs
 
 class MediaListScreen : Screen {
 
@@ -34,7 +34,7 @@ class MediaListScreen : Screen {
         val mediaService = remember { ApiService() }
 
         // Состояния для данных
-        var mediaList by remember { mutableStateOf<List<MediaDto>>(emptyList()) }
+        var mediaList by remember { mutableStateOf<List<MediaDtoRs>>(emptyList()) }
         var isLoading by remember { mutableStateOf(true) }
         var errorMessage by remember { mutableStateOf<String?>(null) }
 
@@ -107,7 +107,7 @@ class MediaListScreen : Screen {
 
     // Альтернативный вариант с LazyColumn и прокруткой
     @Composable
-    private fun MediaTableWithLazyScrollbar(mediaList: List<MediaDto>) {
+    private fun MediaTableWithLazyScrollbar(mediaList: List<MediaDtoRs>) {
         // State для LazyColumn
         val lazyListState = rememberLazyListState()
 
@@ -155,7 +155,7 @@ class MediaListScreen : Screen {
     // Функция загрузки данных
     private suspend fun loadMediaData(
         service: ApiService,
-        onSuccess: (List<MediaDto>) -> Unit,
+        onSuccess: (List<MediaDtoRs>) -> Unit,
         onLoadingComplete: () -> Unit,
         onError: (String) -> Unit
     ) {
@@ -174,7 +174,7 @@ class MediaListScreen : Screen {
 
     // Компонент таблицы
     @Composable
-    private fun MediaTableWithScrollbar(mediaList: List<MediaDto>) {
+    private fun MediaTableWithScrollbar(mediaList: List<MediaDtoRs>) {
         // State для отслеживания состояния прокрутки
         val scrollState = rememberScrollState()
 
@@ -258,7 +258,7 @@ class MediaListScreen : Screen {
 
     // Строка таблицы
     @Composable
-    private fun MediaTableRow(media: MediaDto, index: Int) {
+    private fun MediaTableRow(media: MediaDtoRs, index: Int) {
         val backgroundColor = if (index % 2 == 0) {
             MaterialTheme.colorScheme.surface
         } else {

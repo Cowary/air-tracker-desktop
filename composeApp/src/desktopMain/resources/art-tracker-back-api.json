@@ -1,1 +1,2414 @@
-{"openapi":"3.1.0","info":{"title":"ArtTracker Back API","version":"1.0.0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"paths":{"/title/tv":{"get":{"tags":["tv-controller"],"operationId":"getAllByUsrId","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/TvSeasonDto"}}}}}}},"put":{"tags":["tv-controller"],"operationId":"putTitle","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TvSeasonDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TvSeasonDto"}}}}}},"post":{"tags":["tv-controller"],"operationId":"postTitle","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TvSeasonDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TvSeasonDto"}}}}}},"delete":{"tags":["tv-controller"],"operationId":"deleteTitle","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/title/ranobe":{"get":{"tags":["ranobe-controller"],"operationId":"getAllByUsrId_1","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/RanobeVolumeDto"}}}}}}},"put":{"tags":["ranobe-controller"],"operationId":"putTitle_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RanobeVolumeDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/RanobeVolumeDto"}}}}}},"post":{"tags":["ranobe-controller"],"operationId":"postTitle_1","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RanobeVolumeDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/RanobeVolumeDto"}}}}}},"delete":{"tags":["ranobe-controller"],"operationId":"deleteTitle_1","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/title/movie":{"get":{"tags":["movie-controller"],"operationId":"getAllByUsrId_2","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MovieDto"}}}}}}},"put":{"tags":["movie-controller"],"operationId":"putTitle_2","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/MovieDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MovieDto"}}}}}},"post":{"tags":["movie-controller"],"operationId":"postTitle_2","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/MovieDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MovieDto"}}}}}},"delete":{"tags":["movie-controller"],"operationId":"deleteTitle_2","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/title/manga":{"get":{"tags":["manga-controller"],"operationId":"getAllByUsrId_3","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MangaDto"}}}}}}},"put":{"tags":["manga-controller"],"operationId":"putTitle_3","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/MangaDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MangaDto"}}}}}},"post":{"tags":["manga-controller"],"operationId":"postTitle_3","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/MangaDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MangaDto"}}}}}},"delete":{"tags":["manga-controller"],"operationId":"deleteTitle_3","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/title/game":{"get":{"tags":["game-controller"],"operationId":"getAllByUsrId_4","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/GameDto"}}}}}}},"put":{"tags":["game-controller"],"operationId":"putTitle_4","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GameDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/GameDto"}}}}}},"post":{"tags":["game-controller"],"operationId":"postTitle_4","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GameDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/GameDto"}}}}}},"delete":{"tags":["game-controller"],"operationId":"deleteTitle_4","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/title/book":{"get":{"tags":["book-controller"],"operationId":"getAllByUsrId_5","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BookDto"}}}}}}},"put":{"tags":["book-controller"],"operationId":"putTitle_5","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BookDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/BookDto"}}}}}},"post":{"tags":["book-controller"],"operationId":"postTitle_5","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BookDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/BookDto"}}}}}},"delete":{"tags":["book-controller"],"operationId":"deleteTitle_5","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/title/anime":{"get":{"tags":["anime-controller"],"operationId":"getAllByUsrId_6","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/AnimeDto"}}}}}}},"put":{"tags":["anime-controller"],"operationId":"putTitle_6","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AnimeDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimeDto"}}}}}},"post":{"tags":["anime-controller"],"operationId":"postTitle_6","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AnimeDto"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimeDto"}}}}}},"delete":{"tags":["anime-controller"],"operationId":"deleteTitle_6","parameters":[{"name":"id","in":"header","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string"}}}}}}},"/api/auth/signin":{"post":{"tags":["auth-controller"],"operationId":"authenticateUser","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AuthenticationReq"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AuthenticationResp"}}}}}}},"/title/view/watch":{"get":{"tags":["media-list-controller"],"operationId":"getWatchList","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","required":false,"schema":{"type":"string","default":""}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MediaDto"}}}}}}}},"/title/view/read":{"get":{"tags":["media-list-controller"],"operationId":"getReadList","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","required":false,"schema":{"type":"string","default":""}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MediaDto"}}}}}}}},"/title/view/play":{"get":{"tags":["media-list-controller"],"operationId":"getPlayList","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","required":false,"schema":{"type":"string","default":""}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/GameDto"}}}}}}}},"/title/view/media":{"get":{"tags":["media-list-controller"],"operationId":"getMediaList","parameters":[{"name":"userId","in":"header","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","required":false,"schema":{"type":"string","default":""}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MediaDto"}}}}}}}},"/title/tv/{titleId}":{"get":{"tags":["tv-controller"],"operationId":"getTitle","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TvSeasonDto"}}}}}}},"/title/tv/getByServiceId":{"get":{"tags":["tv-controller"],"operationId":"getByIntegrationID","parameters":[{"name":"id","in":"query","required":true,"schema":{"type":"integer","format":"int32"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TvRs"}}}}}}},"/title/tv/find":{"get":{"tags":["tv-controller"],"operationId":"find","parameters":[{"name":"keyword","in":"query","required":true,"schema":{"type":"string","minLength":1}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FindMediaRs"}}}}}}},"/title/ranobe/{titleId}":{"get":{"tags":["ranobe-controller"],"operationId":"getTitle_1","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/RanobeVolumeDto"}}}}}}},"/title/ranobe/getByServiceId":{"get":{"tags":["ranobe-controller"],"operationId":"getByIntegrationID_1","parameters":[{"name":"id","in":"query","required":true,"schema":{"type":"integer","format":"int32"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/RanobeRs"}}}}}}},"/title/ranobe/find":{"get":{"tags":["ranobe-controller"],"operationId":"find_1","parameters":[{"name":"keyword","in":"query","required":true,"schema":{"type":"string","minLength":1}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FindMediaRs"}}}}}}},"/title/movie/{titleId}":{"get":{"tags":["movie-controller"],"operationId":"getTitle_2","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MovieDto"}}}}}}},"/title/movie/getByServiceId":{"get":{"tags":["movie-controller"],"operationId":"getByIntegrationID_2","parameters":[{"name":"id","in":"query","required":true,"schema":{"type":"integer","format":"int32"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MovieRs"}}}}}}},"/title/movie/find":{"get":{"tags":["movie-controller"],"operationId":"find_2","parameters":[{"name":"keyword","in":"query","required":true,"schema":{"type":"string","minLength":1}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FindMediaRs"}}}}}}},"/title/manga/{titleId}":{"get":{"tags":["manga-controller"],"operationId":"getTitle_3","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MangaDto"}}}}}}},"/title/manga/getByServiceId":{"get":{"tags":["manga-controller"],"operationId":"getByIntegrationID_3","parameters":[{"name":"id","in":"query","required":true,"schema":{"type":"integer","format":"int32"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MangaRs"}}}}}}},"/title/manga/find":{"get":{"tags":["manga-controller"],"operationId":"find_3","parameters":[{"name":"keyword","in":"query","required":true,"schema":{"type":"string","minLength":1}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FindMediaRs"}}}}}}},"/title/game/{titleId}":{"get":{"tags":["game-controller"],"operationId":"getTitle_4","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/GameDto"}}}}}}},"/title/book/{titleId}":{"get":{"tags":["book-controller"],"operationId":"getTitle_5","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/BookDto"}}}}}}},"/title/anime/{titleId}":{"get":{"tags":["anime-controller"],"operationId":"getTitle_6","parameters":[{"name":"titleId","in":"path","required":true,"schema":{"type":"integer","format":"int64"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimeDto"}}}}}}},"/title/anime/getByServiceId":{"get":{"tags":["anime-controller"],"operationId":"getByIntegrationID_4","parameters":[{"name":"id","in":"query","required":true,"schema":{"type":"integer","format":"int32"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimeRs"}}}}}}},"/title/anime/find":{"get":{"tags":["anime-controller"],"operationId":"find_4","parameters":[{"name":"keyword","in":"query","required":true,"schema":{"type":"string","minLength":1}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/FindMediaRs"}}}}}}},"/heh":{"get":{"tags":["test-controller"],"operationId":"getById","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/Anime"}}}}}}}},"components":{"schemas":{"TvDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string"},"title":{"type":"string"},"releaseYear":{"type":"integer","format":"int32"},"score":{"type":"integer","format":"int32"},"seasons":{"type":"integer","format":"int32"},"lastUpd":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"integrationId":{"type":"integer","format":"int32"},"type":{"type":"string"}}},"TvSeasonDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"number":{"type":"integer","format":"int32"},"episodes":{"type":"integer","format":"int32"},"episodesEnd":{"type":"integer","format":"int32"},"status":{"type":"string"},"score":{"type":"integer","format":"int32"},"endDate":{"type":"string","format":"date"},"lastUpd":{"type":"string","format":"date"},"tv":{"$ref":"#/components/schemas/TvDto"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}}},"RanobeDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string"},"title":{"type":"string"},"volumes":{"type":"integer","format":"int32"},"score":{"type":"integer","format":"int32"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"shikiId":{"type":"integer","format":"int32"},"lastUpd":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}}},"RanobeVolumeDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"number":{"type":"integer","format":"int32"},"status":{"type":"string"},"score":{"type":"integer","format":"int32"},"endDate":{"type":"string","format":"date"},"ranobe":{"$ref":"#/components/schemas/RanobeDto"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}}},"MovieDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string"},"title":{"type":"string","minLength":1},"releaseYear":{"type":"integer","format":"int32"},"duration":{"type":"integer","format":"int32"},"status":{"type":"string","minLength":1},"score":{"type":"integer","format":"int32"},"endDate":{"type":"string","format":"date"},"lastUpd":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"integrationId":{"type":"integer","format":"int32"},"type":{"type":"string"}},"required":["releaseYear","score","status","title"]},"MangaDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string"},"title":{"type":"string"},"volumes":{"type":"integer","format":"int32"},"chapters":{"type":"integer","format":"int32"},"status":{"type":"string"},"score":{"type":"integer","format":"int32"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"endDate":{"type":"string","format":"date"},"shikiId":{"type":"integer","format":"int32"},"volumesEnd":{"type":"integer","format":"int32"},"chaptersEnd":{"type":"integer","format":"int32"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}}},"GameDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"endDate":{"type":"string","format":"date"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"score":{"type":"integer","format":"int32"},"status":{"type":"string"},"lastUpd":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}}},"BookDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"title":{"type":"string"},"endDate":{"type":"string","format":"date"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"score":{"type":"integer","format":"int32"},"status":{"type":"string"},"author":{"type":"string"},"lastUpd":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}}},"AnimeDto":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string"},"title":{"type":"string"},"episodes":{"type":"integer","format":"int32"},"status":{"type":"string","minLength":1},"score":{"type":"integer","format":"int32"},"endDate":{"type":"string","format":"date"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"shikiId":{"type":"integer","format":"int32"},"duration":{"type":"integer","format":"int32"},"episodesEnd":{"type":"integer","format":"int32"},"lastUpd":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"type":{"type":"string"}},"required":["status"]},"AuthenticationReq":{"type":"object","properties":{"username":{"type":"string","minLength":1},"password":{"type":"string","minLength":1}},"required":["password","username"]},"AuthenticationResp":{"type":"object","properties":{"token":{"type":"string"},"id":{"type":"integer","format":"int64"}}},"MediaDto":{"type":"object","properties":{"status":{"type":"string"},"endDate":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string"},"title":{"type":"string"},"episodes":{"type":"integer","format":"int32"},"score":{"type":"integer","format":"int32"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"shikiId":{"type":"integer","format":"int64"},"duration":{"type":"integer","format":"int32"},"episodesEnd":{"type":"integer","format":"int32"},"lastUpd":{"type":"string","format":"date"},"type":{"type":"string"}}},"TvRs":{"type":"object","properties":{"tv":{"$ref":"#/components/schemas/TvDto"},"posterUrl":{"type":"string"}}},"FindMediaRs":{"type":"object","properties":{"findMedia":{"type":"array","items":{"$ref":"#/components/schemas/Finds"}}}},"Finds":{"type":"object","properties":{"nameEn":{"type":"string"},"nameRu":{"type":"string"},"score":{"type":"string"},"episodes":{"type":"integer","format":"int32"},"year":{"type":"integer","format":"int32"},"integrationId":{"type":"integer","format":"int32"}}},"RanobeRs":{"type":"object","properties":{"ranobe":{"$ref":"#/components/schemas/RanobeDto"},"posterUrl":{"type":"string"}}},"MovieRs":{"type":"object","properties":{"movie":{"$ref":"#/components/schemas/MovieDto"},"posterUrl":{"type":"string"}}},"MangaRs":{"type":"object","properties":{"manga":{"$ref":"#/components/schemas/MangaDto"},"posterUrl":{"type":"string"}}},"AnimeRs":{"type":"object","properties":{"media":{"$ref":"#/components/schemas/AnimeDto"},"posterUrl":{"type":"string"}}},"Anime":{"type":"object","properties":{"status":{"type":"string","minLength":1},"endDate":{"type":"string","format":"date"},"usrId":{"type":"integer","format":"int64"},"id":{"type":"integer","format":"int64"},"originalTitle":{"type":"string","minLength":1},"title":{"type":"string","minLength":1},"episodes":{"type":"integer","format":"int32"},"score":{"type":"integer","format":"int32"},"releaseDate":{"type":"string","format":"date"},"releaseYear":{"type":"integer","format":"int32"},"shikiId":{"type":"integer","format":"int32"},"duration":{"type":"integer","format":"int32"},"episodesEnd":{"type":"integer","format":"int32"},"lastUpd":{"type":"string","format":"date"},"type":{"type":"string"}},"required":["originalTitle","status","title"]}}}}
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ArtTracker Back API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/title/tv": {
+      "get": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "getAllByUsrId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TvSeasonDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "putTitle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TvSeasonDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvSeasonDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "postTitle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TvSeasonDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvSeasonDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "deleteTitle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/ranobe": {
+      "get": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "getAllByUsrId_1",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "putTitle_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "postTitle_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "deleteTitle_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/movie": {
+      "get": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "getAllByUsrId_2",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MovieDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "putTitle_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieDtoRq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "postTitle_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieDtoRq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "deleteTitle_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/manga": {
+      "get": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "getAllByUsrId_3",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MangaDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "putTitle_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MangaDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MangaDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "postTitle_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MangaDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MangaDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "deleteTitle_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/game": {
+      "get": {
+        "tags": [
+          "game-controller"
+        ],
+        "operationId": "getAllByUsrId_4",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GameDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "game-controller"
+        ],
+        "operationId": "putTitle_4",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "game-controller"
+        ],
+        "operationId": "postTitle_4",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "game-controller"
+        ],
+        "operationId": "deleteTitle_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/book": {
+      "get": {
+        "tags": [
+          "book-controller"
+        ],
+        "operationId": "getAllByUsrId_5",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "book-controller"
+        ],
+        "operationId": "putTitle_5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "book-controller"
+        ],
+        "operationId": "postTitle_5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookDtoRs"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "book-controller"
+        ],
+        "operationId": "deleteTitle_5",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/anime": {
+      "get": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "getAllByUsrId_6",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnimeDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "putTitle_6",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnimeDtoRq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimeDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "postTitle_6",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnimeDtoRq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimeDtoRs"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "deleteTitle_6",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "authenticateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/view/watch": {
+      "get": {
+        "tags": [
+          "media-list-controller"
+        ],
+        "operationId": "getWatchList",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MediaDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/view/read": {
+      "get": {
+        "tags": [
+          "media-list-controller"
+        ],
+        "operationId": "getReadList",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MediaDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/view/play": {
+      "get": {
+        "tags": [
+          "media-list-controller"
+        ],
+        "operationId": "getPlayList",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GameDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/view/media": {
+      "get": {
+        "tags": [
+          "media-list-controller"
+        ],
+        "operationId": "getMediaList",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MediaDtoRs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/tv/{titleId}": {
+      "get": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "getTitle",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvSeasonDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/tv/getByServiceId": {
+      "get": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "getByIntegrationID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TvRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/tv/find": {
+      "get": {
+        "tags": [
+          "tv-controller"
+        ],
+        "operationId": "find",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindMediaRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/ranobe/{titleId}": {
+      "get": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "getTitle_1",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/ranobe/getByServiceId": {
+      "get": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "getByIntegrationID_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RanobeRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/ranobe/find": {
+      "get": {
+        "tags": [
+          "ranobe-controller"
+        ],
+        "operationId": "find_1",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindMediaRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/movie/{titleId}": {
+      "get": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "getTitle_2",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/movie/getByServiceId": {
+      "get": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "getByIntegrationID_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/movie/find": {
+      "get": {
+        "tags": [
+          "movie-controller"
+        ],
+        "operationId": "find_2",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindMediaRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/manga/{titleId}": {
+      "get": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "getTitle_3",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MangaDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/manga/getByServiceId": {
+      "get": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "getByIntegrationID_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MangaRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/manga/find": {
+      "get": {
+        "tags": [
+          "manga-controller"
+        ],
+        "operationId": "find_3",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindMediaRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/game/{titleId}": {
+      "get": {
+        "tags": [
+          "game-controller"
+        ],
+        "operationId": "getTitle_4",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/book/{titleId}": {
+      "get": {
+        "tags": [
+          "book-controller"
+        ],
+        "operationId": "getTitle_5",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/anime/{titleId}": {
+      "get": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "getTitle_6",
+        "parameters": [
+          {
+            "name": "titleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimeDtoRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/anime/getByServiceId": {
+      "get": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "getByIntegrationID_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnimeRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/title/anime/find": {
+      "get": {
+        "tags": [
+          "anime-controller"
+        ],
+        "operationId": "find_4",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindMediaRs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/heh": {
+      "get": {
+        "tags": [
+          "test-controller"
+        ],
+        "operationId": "getById",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Anime"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TvDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seasons": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "TvSeasonDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "tv": {
+            "$ref": "#/components/schemas/TvDtoRs"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "RanobeDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "volumes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "RanobeVolumeDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "ranobe": {
+            "$ref": "#/components/schemas/RanobeDtoRs"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "MovieDtoRq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "releaseYear",
+          "score",
+          "status",
+          "title"
+        ]
+      },
+      "MovieDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "MangaDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "volumes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chapters": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "volumesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chaptersEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "GameDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "BookDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "AnimeDtoRq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "originalTitle",
+          "releaseDate",
+          "shikiId",
+          "status",
+          "title",
+          "usrId"
+        ]
+      },
+      "AnimeDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "AuthenticationReq": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "password",
+          "username"
+        ]
+      },
+      "AuthenticationResp": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "MediaDtoRs": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "TvRs": {
+        "type": "object",
+        "properties": {
+          "tv": {
+            "$ref": "#/components/schemas/TvDtoRs"
+          },
+          "posterUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "FindMediaRs": {
+        "type": "object",
+        "properties": {
+          "findMedia": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Finds"
+            }
+          }
+        }
+      },
+      "Finds": {
+        "type": "object",
+        "properties": {
+          "nameEn": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "score": {
+            "type": "string"
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RanobeRs": {
+        "type": "object",
+        "properties": {
+          "ranobe": {
+            "$ref": "#/components/schemas/RanobeDtoRs"
+          },
+          "posterUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "MovieRs": {
+        "type": "object",
+        "properties": {
+          "media": {
+            "$ref": "#/components/schemas/MovieDtoRs"
+          },
+          "posterUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "MangaRs": {
+        "type": "object",
+        "properties": {
+          "manga": {
+            "$ref": "#/components/schemas/MangaDtoRs"
+          },
+          "posterUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "AnimeRs": {
+        "type": "object",
+        "properties": {
+          "media": {
+            "$ref": "#/components/schemas/AnimeDtoRs"
+          },
+          "posterUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "Anime": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "originalTitle",
+          "status",
+          "title"
+        ]
+      }
+    }
+  }
+}

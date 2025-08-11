@@ -81,7 +81,7 @@ class HomeScreen : Screen {
 
             Button(
                 onClick = {
-                    navigator.push(SearchAnimeScreen())
+                    navigator.push(SearchAnimeScreen("anime"))
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,6 +89,20 @@ class HomeScreen : Screen {
             ) {
                 Text("Поиск аниме")
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = {
+                    navigator.push(SearchAnimeScreen("film"))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text("Поиск фильмов")
+            }
+
         }
 
 

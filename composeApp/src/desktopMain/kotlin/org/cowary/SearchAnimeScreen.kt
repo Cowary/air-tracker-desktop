@@ -3,6 +3,8 @@ package org.cowary
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
@@ -18,7 +20,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.launch
 import org.openapitools.client.models.Finds
 
-class SearchAnimeScreen : Screen {
+class SearchAnimeScreen(private val type: String) : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -34,7 +36,20 @@ class SearchAnimeScreen : Screen {
         val coroutineScope = rememberCoroutineScope()
 
         Column(modifier = Modifier.fillMaxSize()) {
-            TopAppBar(title = { Text("Поиск аниме") })
+            TopAppBar(
+                title = { Text("Поиск аниме") },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navigator.pop()
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Назад"
+                        )
+                    }
+                }
+            )
+
 
             Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
                 TextField(
@@ -52,7 +67,11 @@ class SearchAnimeScreen : Screen {
                             coroutineScope.launch {
                                 isLoading = true
                                 errorMessage = null
-                                results = animeService.fetchAnime(query.text)
+                                results = when (type) {
+                                    "anime" -> animeService.fetchAnime(query.text)
+                                    "film" -> animeService.fetchMovie(query.text)
+                                    else -> throw IllegalArgumentException("Unknown type: $type")
+                                }
                                 isLoading = false
                             }
                         }
@@ -77,7 +96,11 @@ class SearchAnimeScreen : Screen {
                     )
                 } else {
                     MediaTable(results) { anime ->
-                        navigator.push(EditAnimeScreen(anime))
+                        when (type) {
+                            "anime" -> navigator.push(EditAnimeScreen(anime))
+                            "film" -> navigator.push(EditMovieScreen(anime))
+                            else -> throw IllegalArgumentException("Unknown type: $type")
+                        }
                     }
                 }
             }
@@ -120,13 +143,14 @@ class SearchAnimeScreen : Screen {
         ) {
             HeaderCell("NameEn", Modifier.weight(2f))
             HeaderCell("NameRu", Modifier.weight(3f))
+            HeaderCell("Year", Modifier.weight(1f))
             HeaderCell("Score", Modifier.weight(1f))
             HeaderCell("Episodes", Modifier.weight(1f))
             HeaderCell("IntegrationId", Modifier.weight(1f))
             HeaderCell("Действие", Modifier.weight(1f))
         }
 
-        Divider(color = MaterialTheme.colorScheme.onSurface, thickness = 2.dp)
+        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.onSurface)
     }
 
     @Composable
@@ -161,6 +185,7 @@ class SearchAnimeScreen : Screen {
         ) {
             TableCell(anime.nameEn.toString(), Modifier.weight(2f))
             TableCell(anime.nameRu.toString(), Modifier.weight(3f))
+            TableCell(anime.year.toString(), Modifier.weight(1f))
             TableCell(anime.score.toString(), Modifier.weight(1f))
             TableCell(anime.episodes.toString(), Modifier.weight(1f))
             TableCell(anime.integrationId.toString(), Modifier.weight(1f))

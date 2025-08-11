@@ -66,7 +66,7 @@ compose.desktop {
 //            includeAllModules = true
             targetFormats(TargetFormat.Rpm, TargetFormat.Exe)
             packageName = "air-tracker-desktop"
-            packageVersion = "1.1.0"
+            packageVersion = "1.2.0"
 
         }
     }
