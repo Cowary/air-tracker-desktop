@@ -1,12 +1,12 @@
-package org.cowary
+package org.cowary.screen
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +18,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.launch
+import org.cowary.ApiService
 import org.openapitools.client.models.Finds
 
 class SearchAnimeScreen(private val type: String) : Screen {
@@ -70,6 +71,7 @@ class SearchAnimeScreen(private val type: String) : Screen {
                                 results = when (type) {
                                     "anime" -> animeService.fetchAnime(query.text)
                                     "film" -> animeService.fetchMovie(query.text)
+                                    "tv" -> animeService.fetchTv(query.text)
                                     else -> throw IllegalArgumentException("Unknown type: $type")
                                 }
                                 isLoading = false
@@ -99,6 +101,7 @@ class SearchAnimeScreen(private val type: String) : Screen {
                         when (type) {
                             "anime" -> navigator.push(EditAnimeScreen(anime))
                             "film" -> navigator.push(EditMovieScreen(anime))
+                            "tv" -> navigator.push(EditTvScreen(anime))
                             else -> throw IllegalArgumentException("Unknown type: $type")
                         }
                     }

@@ -53,7 +53,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TvSeasonDtoRs"
+                "$ref": "#/components/schemas/TvSeasonDtoRq"
               }
             }
           },
@@ -81,7 +81,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TvSeasonDtoRs"
+                "$ref": "#/components/schemas/TvSeasonDtoRq"
               }
             }
           },
@@ -172,7 +172,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+                "$ref": "#/components/schemas/RanobeVolumeDtoRq"
               }
             }
           },
@@ -200,7 +200,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RanobeVolumeDtoRs"
+                "$ref": "#/components/schemas/RanobeVolumeDtoRq"
               }
             }
           },
@@ -410,7 +410,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MangaDtoRs"
+                "$ref": "#/components/schemas/MangaDtoRq"
               }
             }
           },
@@ -438,7 +438,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MangaDtoRs"
+                "$ref": "#/components/schemas/MangaDtoRq"
               }
             }
           },
@@ -529,7 +529,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GameDtoRs"
+                "$ref": "#/components/schemas/GameDtoRq"
               }
             }
           },
@@ -557,7 +557,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GameDtoRs"
+                "$ref": "#/components/schemas/GameDtoRq"
               }
             }
           },
@@ -648,7 +648,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookDtoRs"
+                "$ref": "#/components/schemas/BookDtoRq"
               }
             }
           },
@@ -676,7 +676,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BookDtoRs"
+                "$ref": "#/components/schemas/BookDtoRq"
               }
             }
           },
@@ -1638,7 +1638,7 @@
           }
         }
       },
-      "TvSeasonDtoRs": {
+      "TvSeasonDtoRq": {
         "type": "object",
         "properties": {
           "id": {
@@ -1646,6 +1646,9 @@
             "format": "int64"
           },
           "title": {
+            "type": "string"
+          },
+          "originalTitle": {
             "type": "string"
           },
           "number": {
@@ -1674,6 +1677,74 @@
           "lastUpd": {
             "type": "string",
             "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tv": {
+            "$ref": "#/components/schemas/TvDtoRs"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "TvSeasonDtoRs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "episodesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "integration": {
+            "type": "integer",
+            "format": "int32"
           },
           "tv": {
             "$ref": "#/components/schemas/TvDtoRs"
@@ -1723,6 +1794,43 @@
           "lastUpd": {
             "type": "string",
             "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "RanobeVolumeDtoRq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "ranobe": {
+            "$ref": "#/components/schemas/RanobeDtoRs"
           },
           "usrId": {
             "type": "integer",
@@ -1876,6 +1984,67 @@
           }
         }
       },
+      "MangaDtoRq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalTitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "volumes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chapters": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "shikiId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "volumesEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chaptersEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
       "MangaDtoRs": {
         "type": "object",
         "properties": {
@@ -1937,6 +2106,48 @@
           }
         }
       },
+      "GameDtoRq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
       "GameDtoRs": {
         "type": "object",
         "properties": {
@@ -1964,6 +2175,51 @@
             "format": "int32"
           },
           "status": {
+            "type": "string"
+          },
+          "lastUpd": {
+            "type": "string",
+            "format": "date"
+          },
+          "usrId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "BookDtoRq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "author": {
             "type": "string"
           },
           "lastUpd": {
@@ -2251,8 +2507,8 @@
       "TvRs": {
         "type": "object",
         "properties": {
-          "tv": {
-            "$ref": "#/components/schemas/TvDtoRs"
+          "media": {
+            "$ref": "#/components/schemas/TvSeasonDtoRs"
           },
           "posterUrl": {
             "type": "string"
@@ -2299,7 +2555,7 @@
       "RanobeRs": {
         "type": "object",
         "properties": {
-          "ranobe": {
+          "media": {
             "$ref": "#/components/schemas/RanobeDtoRs"
           },
           "posterUrl": {
@@ -2321,7 +2577,7 @@
       "MangaRs": {
         "type": "object",
         "properties": {
-          "manga": {
+          "media": {
             "$ref": "#/components/schemas/MangaDtoRs"
           },
           "posterUrl": {

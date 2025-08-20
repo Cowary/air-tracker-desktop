@@ -1,23 +1,18 @@
-package org.cowary
+package org.cowary.screen
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.vector.ImageVector
 //import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen // ВАЖНО: Voyager Screen
-import cafe.adriel.voyager.navigator.LocalNavigator // Для навигации
-import cafe.adriel.voyager.navigator.currentOrThrow // Для получения навигатора
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 
 // ProfileScreen тоже НАСЛЕДУЕТСЯ от Screen
 class ProfileScreen : Screen {
