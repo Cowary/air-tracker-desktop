@@ -72,6 +72,7 @@ class SearchAnimeScreen(private val type: String) : Screen {
                                     "anime" -> animeService.fetchAnime(query.text)
                                     "film" -> animeService.fetchMovie(query.text)
                                     "tv" -> animeService.fetchTv(query.text)
+                                    "manga" -> animeService.fetchManga(query.text)
                                     else -> throw IllegalArgumentException("Unknown type: $type")
                                 }
                                 isLoading = false
@@ -99,9 +100,10 @@ class SearchAnimeScreen(private val type: String) : Screen {
                 } else {
                     MediaTable(results) { anime ->
                         when (type) {
-                            "anime" -> navigator.push(EditAnimeScreen(anime))
+                            "anime" -> navigator.push(EditMangaScreen(anime))
                             "film" -> navigator.push(EditMovieScreen(anime))
                             "tv" -> navigator.push(EditTvScreen(anime))
+                            "manga" -> navigator.push(EditMangaScreen(anime))
                             else -> throw IllegalArgumentException("Unknown type: $type")
                         }
                     }

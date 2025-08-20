@@ -117,6 +117,18 @@ class HomeScreen : Screen {
             ) {
                 Text("Поиск сериалов")
             }
+
+            Button(
+                onClick = {
+                    navigator.push(SearchAnimeScreen("manga"))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text("Поиск манги")
+            }
+
         }
 
 
