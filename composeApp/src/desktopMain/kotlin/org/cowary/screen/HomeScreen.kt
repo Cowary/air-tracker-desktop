@@ -140,6 +140,17 @@ class HomeScreen : Screen {
                 Text("Поиск ранобе")
             }
 
+            Button(
+                onClick = {
+                    navigator.push(EditGameScreen())
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text("Добавление игры")
+            }
+
 
         }
 
