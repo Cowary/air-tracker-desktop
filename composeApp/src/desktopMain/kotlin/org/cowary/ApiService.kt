@@ -243,14 +243,14 @@ class ApiService {
         } as Boolean
     }
 
-//    suspend fun saveBook(text: Book): Boolean {
-//        return try {
-//            val response = ranobeApi.postTitle1(text)
-//            val rs = response.response.body() as RanobeVolumeDtoRs
-//            true
-//        } catch (e: Exception) {
-//            println("Ошибка: ${e.message}")
-//            "Ошибка подключения"
-//        } as Boolean
-//    }
+    suspend fun saveBook(text: BookDtoRq): Boolean {
+        return try {
+            val response = bookApi.postTitle5(text)
+            val rs = response.response.body() as RanobeVolumeDtoRs
+            true
+        } catch (e: Exception) {
+            println("Ошибка: ${e.message}")
+            "Ошибка подключения"
+        } as Boolean
+    }
 }

@@ -151,6 +151,16 @@ class HomeScreen : Screen {
                 Text("Добавление игры")
             }
 
+            Button(
+                onClick = {
+                    navigator.push(EditBookScreen())
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text("Добавление книги")
+            }
 
         }
 
