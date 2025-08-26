@@ -1779,6 +1779,9 @@
             "type": "integer",
             "format": "int32"
           },
+          "status": {
+            "type": "string"
+          },
           "releaseDate": {
             "type": "string",
             "format": "date"
@@ -1799,6 +1802,10 @@
             "type": "integer",
             "format": "int64"
           },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
           "type": {
             "type": "string"
           }
@@ -1812,6 +1819,9 @@
             "format": "int64"
           },
           "title": {
+            "type": "string"
+          },
+          "originalTitle": {
             "type": "string"
           },
           "number": {
@@ -1835,6 +1845,14 @@
           "usrId": {
             "type": "integer",
             "format": "int64"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
           },
           "type": {
             "type": "string"
@@ -1851,6 +1869,9 @@
           "title": {
             "type": "string"
           },
+          "originalTitle": {
+            "type": "string"
+          },
           "number": {
             "type": "integer",
             "format": "int32"
@@ -1872,6 +1893,14 @@
           "usrId": {
             "type": "integer",
             "format": "int64"
+          },
+          "integrationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
           },
           "type": {
             "type": "string"
@@ -2556,7 +2585,7 @@
         "type": "object",
         "properties": {
           "media": {
-            "$ref": "#/components/schemas/RanobeDtoRs"
+            "$ref": "#/components/schemas/RanobeVolumeDtoRs"
           },
           "posterUrl": {
             "type": "string"

@@ -114,6 +114,17 @@ class ApiService {
         } as List<Finds>
     }
 
+    suspend fun fetchRanobe(text: String): List<Finds> {
+        return try {
+            val response = ranobeApi.find1(text)
+            val rs = response.response.body() as FindMediaRs
+            rs.findMedia
+        } catch (e: Exception) {
+            println("Ошибка: ${e.message}")
+            "Ошибка подключения"
+        } as List<Finds>
+    }
+
     suspend fun getAnime(text: Int): AnimeRs {
         return try {
             val response = animeApi.getByIntegrationID4(text)
