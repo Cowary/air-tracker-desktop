@@ -101,7 +101,7 @@ class SearchAnimeScreen(private val type: String) : Screen {
                 } else {
                     MediaTable(results) { anime ->
                         when (type) {
-                            "anime" -> navigator.push(EditMangaScreen(anime))
+                            "anime" -> navigator.push(EditAnimeScreen(anime))
                             "film" -> navigator.push(EditMovieScreen(anime))
                             "tv" -> navigator.push(EditTvScreen(anime))
                             "manga" -> navigator.push(EditMangaScreen(anime))
