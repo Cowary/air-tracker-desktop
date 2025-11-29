@@ -5,13 +5,16 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
+import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.openapitools.client.apis.*
 import org.openapitools.client.models.*
 
 
 class ApiService {
+
     private val client: HttpClient = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -28,11 +31,13 @@ class ApiService {
                 }
             }
         }
-            install(HttpTimeout) {
+        install(HttpTimeout) {
             requestTimeoutMillis = 600000
         }
+        defaultRequest {
+            header("Authorization", "Bearer ${runBlocking { TokenManager.getToken() }}")
+        }
     }
-
 
     private val usersApi = MediaListControllerApi("http://localhost:8080", client)
     private val animeApi = AnimeControllerApi("http://localhost:8080", client)
@@ -44,13 +49,6 @@ class ApiService {
     private val mangaApi = MangaControllerApi("http://localhost:8080", client)
 
     suspend fun fetchData(): String {
-//        val result = client.get {
-//            url {
-//                protocol = URLProtocol.HTTPS
-//                host = "dummyjson.com"
-//                path("test")
-//            }
-//        }
         return try {
             val response = usersApi.getMediaList(3)
             response.response.body()

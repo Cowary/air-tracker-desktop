@@ -55,7 +55,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Rpm, TargetFormat.Exe)
             packageName = "air-tracker-desktop"
-            packageVersion = "1.2.0"
+            packageVersion = "1.3.0"
 
         }
     }
