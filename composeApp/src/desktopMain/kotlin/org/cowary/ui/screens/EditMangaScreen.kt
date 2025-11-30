@@ -1,4 +1,4 @@
-package org.cowary.screen
+package org.cowary.ui.screens
 
 import air_tracker_desktop.composeapp.generated.resources.Res
 import air_tracker_desktop.composeapp.generated.resources.compose_multiplatform
@@ -18,19 +18,19 @@ import coil3.compose.AsyncImage
 import kotlinx.coroutines.launch
 import org.cowary.ApiService
 import org.jetbrains.compose.resources.painterResource
-import org.openapitools.client.models.TvRs
-import org.openapitools.client.models.TvSeasonDtoRq
+import org.openapitools.client.models.MangaDtoRq
+import org.openapitools.client.models.MangaRs
 
-
-class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
+class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val service = remember { ApiService() }
+        val animeService = remember { ApiService() }
 
         // Состояния для данных
-        var movieRs by remember { mutableStateOf<TvRs?>(null) }
+        var mangaRs by remember { mutableStateOf<MangaRs?>(null) }
+        var animeRq by remember { mutableStateOf<MangaDtoRq?>(null) }
         var isLoading by remember { mutableStateOf(true) }
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var isSaving by remember { mutableStateOf(false) }
@@ -38,38 +38,39 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
 
         // Поля без редактирования
         var id by remember { mutableStateOf<Int?>(null) }
-        var usrId by remember { mutableStateOf<Int?>(null) }
+        var usrId by remember { mutableStateOf<Int?>(3) }
 //        var shikiId by remember { mutableStateOf<Int?>(null) }
         // Поля для редактирования
         var title by remember { mutableStateOf(TextFieldValue("")) }
         var originalTitle by remember { mutableStateOf(TextFieldValue("")) }
         var status by remember { mutableStateOf(TextFieldValue("")) }
         var score by remember { mutableStateOf(TextFieldValue("")) }
-//        var duration by remember { mutableStateOf(TextFieldValue("")) }
-//        var releaseDate by remember { mutableStateOf(TextFieldValue("")) }
+        var episodes by remember { mutableStateOf(TextFieldValue("")) }
+        var duration by remember { mutableStateOf(TextFieldValue("")) }
+        var releaseDate by remember { mutableStateOf(TextFieldValue("")) }
         var endDate by remember { mutableStateOf(TextFieldValue("")) }
-        var number by remember { mutableStateOf(TextFieldValue("")) }
-//        var episodes by remember { mutableStateOf(TextFieldValue("")) }
-//        var episodesEnd by remember { mutableStateOf(TextFieldValue("")) }
-        var releaseYear by remember { mutableStateOf(TextFieldValue("")) }
+        var volumes by remember { mutableStateOf(TextFieldValue("")) }
+        var chapters by remember { mutableStateOf(TextFieldValue("")) }
+        var volumesEnd by remember { mutableStateOf(TextFieldValue("")) }
+        var chaptersEnd by remember { mutableStateOf(TextFieldValue("")) }
+//        var endDate by remember { mutableStateOf(LocalDate.now()) }
 
         val coroutineScope = rememberCoroutineScope()
 
         LaunchedEffect(integrationId) {
-            loadMovieData(service, integrationId, { movieRs = it }, { isLoading = false }, { errorMessage = it })
+            loadMangaData(animeService, integrationId, { mangaRs = it }, { isLoading = false }, { errorMessage = it })
         }
 
-        LaunchedEffect(movieRs) {
-            movieRs?.media?.let { media ->
+        LaunchedEffect(mangaRs) {
+            mangaRs?.media?.let { media ->
                 title = TextFieldValue(media.title ?: "")
                 originalTitle = TextFieldValue(media.originalTitle ?: "")
                 status = TextFieldValue(media.status ?: "")
                 score = TextFieldValue(media.score?.toString() ?: "")
-//                endDate = TextFieldValue(media.endDate ?: "")
-                number = TextFieldValue(media.number?.toString() ?: "")
-
-//                episodes = TextFieldValue(media.episodes ?: "")
-//                episodesEnd = TextFieldValue(media.episodesEnd ?: "")
+                releaseDate = TextFieldValue(media.releaseDate ?: "")
+                endDate = TextFieldValue(media.endDate ?: "")
+                volumes = TextFieldValue(media.volumes?.toString() ?: "")
+                chapters = TextFieldValue(media.chapters?.toString() ?: "")
             }
         }
 
@@ -78,7 +79,7 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                 .fillMaxSize()
         ) {
             TopAppBar(
-                title = { Text("Редактирование сериала") },
+                title = { Text("Редактирование аниме") },
                 navigationIcon = {
                     IconButton(onClick = { navigator.pop() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Назад")
@@ -102,10 +103,10 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                             isLoading = true
                             errorMessage = null
                             coroutineScope.launch {
-                                loadMovieData(
-                                    service,
+                                loadMangaData(
+                                    animeService,
                                     integrationId,
-                                    { movieRs = it },
+                                    { mangaRs = it },
                                     { isLoading = false },
                                     { errorMessage = it })
                             }
@@ -117,8 +118,9 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
 
                 // Основная форма
                 else -> {
-                    TvEditForm(
-                        tvRs = movieRs,
+
+                    MangaEditForm(
+                        mangaRs = mangaRs,
                         originalTitle = originalTitle,
                         onOriginalTitleChange = { originalTitle = it },
                         title = title,
@@ -127,18 +129,18 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                         onStatusChange = { status = it },
                         score = score,
                         onScoreChange = { score = it },
-//                        releaseDate = releaseDate,
-//                        onReleaseDateChange = { releaseDate = it },
+                        releaseDate = releaseDate,
+                        onReleaseDateChange = { releaseDate = it },
                         endDate = endDate,
                         onEndDateChange = { endDate = it },
-                        number = number,
-                        onNumberChange = { number = it },
-//                        episodes = episodes,
-//                        onEpisodeChange = { episodes = it },
-//                        episodesEnd = episodesEnd,
-//                        onEpisodeEndChange = { episodesEnd = it },
-                        releaseYear = releaseYear,
-                        onReleaseYearChange = { releaseYear = it },
+                        volumes = volumes,
+                        onVolumesChange = { volumes = it },
+                        chapters = chapters,
+                        onChaptersChange = { chapters = it },
+                        volumesEnd = volumesEnd,
+                        onVolumesEndChange = { volumesEnd = it },
+                        chaptersEnd = chaptersEnd,
+                        onChaptersEndChange = { chaptersEnd = it },
                         isSaving = isSaving,
                         saveSuccess = saveSuccess,
                         onSaveClick = {
@@ -146,18 +148,23 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                                 isSaving = true
                                 saveSuccess = false
 
-                                val updatedMedia = TvSeasonDtoRq(
+                                val updatedMedia = MangaDtoRq(
+                                    originalTitle = originalTitle.text,
                                     title = title.text,
                                     status = status.text,
-                                    score = score.text.toInt(),
-                                    releaseYear = releaseYear.text.toInt(),
-                                    originalTitle = originalTitle.text,
+                                    releaseDate = releaseDate.text,
+                                    shikiId = integrationId.toInt(),
+                                    usrId = usrId?.toLong()
+                                        ?: throw IllegalStateException("User ID is missing"),
+                                    score = score.text.toIntOrNull(),
+                                    volumes = volumes.text.toIntOrNull(),
+                                    chapters = chapters.text.toIntOrNull(),
+                                    volumesEnd = volumesEnd.text.toIntOrNull(),
+                                    chaptersEnd = chaptersEnd.text.toIntOrNull(),
                                     endDate = endDate.text,
-                                    integrationId = integrationId.toInt(),
-                                    number = number.text.toInt(),
                                 )
 
-                                val success = service.saveTv(updatedMedia)
+                                val success = animeService.saveManga(updatedMedia)
                                 isSaving = false
                                 saveSuccess = success
 
@@ -175,16 +182,17 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
         }
     }
 
-    suspend fun loadMovieData(
+    // Функция загрузки данных
+    suspend fun loadMangaData(
         service: ApiService,
         id: Long,
-        onSuccess: (TvRs) -> Unit,
+        onSuccess: (MangaRs) -> Unit,
         onLoadingComplete: () -> Unit,
         onError: (String) -> Unit
     ) {
         try {
-            val tvRs = service.getTv(id.toInt())
-            onSuccess(tvRs)
+            val mangaRs = service.getManga(id.toInt())
+            onSuccess(mangaRs)
         } catch (e: Exception) {
             onError(e.message ?: "Неизвестная ошибка")
         } finally {
@@ -193,8 +201,8 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
     }
 
     @Composable
-    private fun TvEditForm(
-        tvRs: TvRs?,
+    private fun MangaEditForm(
+        mangaRs: MangaRs?,
         originalTitle: TextFieldValue,
         onOriginalTitleChange: (TextFieldValue) -> Unit,
         title: TextFieldValue,
@@ -203,18 +211,18 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
         onStatusChange: (TextFieldValue) -> Unit,
         score: TextFieldValue,
         onScoreChange: (TextFieldValue) -> Unit,
-//        releaseDate: TextFieldValue,
-//        onReleaseDateChange: (TextFieldValue) -> Unit,
-        releaseYear: TextFieldValue,
-        onReleaseYearChange: (TextFieldValue) -> Unit,
+        releaseDate: TextFieldValue,
+        onReleaseDateChange: (TextFieldValue) -> Unit,
         endDate: TextFieldValue,
         onEndDateChange: (TextFieldValue) -> Unit,
-        number: TextFieldValue,
-        onNumberChange: (TextFieldValue) -> Unit,
-//        episodes: TextFieldValue,
-//        onEpisodeChange: (TextFieldValue) -> Unit,
-//        episodesEnd: TextFieldValue,
-//        onEpisodeEndChange: (TextFieldValue) -> Unit,
+        volumes: TextFieldValue,
+        onVolumesChange: (TextFieldValue) -> Unit,
+        chapters: TextFieldValue,
+        onChaptersChange: (TextFieldValue) -> Unit,
+        volumesEnd: TextFieldValue,
+        onVolumesEndChange: (TextFieldValue) -> Unit,
+        chaptersEnd: TextFieldValue,
+        onChaptersEndChange: (TextFieldValue) -> Unit,
         isSaving: Boolean,
         saveSuccess: Boolean,
         onSaveClick: () -> Unit,
@@ -234,7 +242,7 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-                tvRs?.media?.title?.let { title ->
+                mangaRs?.media?.title?.let { title ->
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
@@ -259,15 +267,6 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
-                IntegerOnlyTextField(
-                    label = "Номер сезона",
-                    value = number.text,
-                    onValueChange = onNumberChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 100
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
                 StatusDropdown(
                     status = status.text,
                     onStatusChange = onStatusChange,
@@ -285,34 +284,50 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 IntegerOnlyTextField(
-                    label = "Год выхода",
-                    value = releaseYear.text,
-                    onValueChange = onReleaseYearChange,
+                    label = "Кол-во томов",
+                    value = volumes.text,
+                    onValueChange = onVolumesChange,
                     modifier = Modifier.fillMaxWidth(),
                     maxValue = 10000
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
-//                IntegerOnlyTextField(
-//                    label = "Кол-во эпизодов",
-//                    value = episodes.text,
-//                    onValueChange = onEpisodeChange,
-//                    modifier = Modifier.fillMaxWidth(),
-//                    maxValue = 10000
-//                )
-//                Spacer(modifier = Modifier.height(6.dp))
-//
-//                IntegerOnlyTextField(
-//                    label = "Кол-во эпизодов просмотрено",
-//                    value = episodesEnd.text,
-//                    onValueChange = onEpisodeEndChange,
-//                    modifier = Modifier.fillMaxWidth(),
-//                    maxValue = 10000
-//                )
-//                Spacer(modifier = Modifier.height(6.dp))
+                IntegerOnlyTextField(
+                    label = "Кол-во томов закончено",
+                    value = volumesEnd.text,
+                    onValueChange = onVolumesEndChange,
+                    modifier = Modifier.fillMaxWidth(),
+                    maxValue = 10000
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+
+                IntegerOnlyTextField(
+                    label = "Кол-во глав",
+                    value = chapters.text,
+                    onValueChange = onChaptersChange,
+                    modifier = Modifier.fillMaxWidth(),
+                    maxValue = 10000
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+
+                IntegerOnlyTextField(
+                    label = "Кол-во глав закончено",
+                    value = chaptersEnd.text,
+                    onValueChange = onChaptersEndChange,
+                    modifier = Modifier.fillMaxWidth(),
+                    maxValue = 10000
+                )
+                Spacer(modifier = Modifier.height(6.dp))
 
                 DateSelectionField(
-                    label = "Дата окончания просмотра:",
+                    label = "Дата выхода",
+                    selectedDate = releaseDate,
+                    onDateSelected = onReleaseDateChange,
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+
+                DateSelectionField(
+                    label = "Дата окончания прочтения:",
                     selectedDate = endDate,
                     onDateSelected = onEndDateChange
                 )
@@ -358,14 +373,14 @@ class EditTvScreen(private val integrationId: Long) : AirScreen(), Screen {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                tvRs?.posterUrl?.let { posterUrl ->
+                mangaRs?.posterUrl?.let { posterUrl ->
                     if (posterUrl.isNotEmpty()) {
                         println("Получен URL постера: $posterUrl")
                         println("Попытка загрузить изображение...")
 
                         AsyncImage(
-                            model = tvRs.posterUrl,
-                            contentDescription = "Постер сериала",
+                            model = mangaRs.posterUrl,
+                            contentDescription = "Постер аниме",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(400.dp)

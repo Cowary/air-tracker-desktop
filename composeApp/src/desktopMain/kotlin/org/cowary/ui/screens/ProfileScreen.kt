@@ -1,4 +1,4 @@
-package org.cowary.screen
+package org.cowary.ui.screens
 
 //import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*

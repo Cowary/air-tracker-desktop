@@ -6,7 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
-import org.cowary.screen.HomeScreen
+import org.cowary.ui.screens.HomeScreen
 
 @Composable
 fun App() {

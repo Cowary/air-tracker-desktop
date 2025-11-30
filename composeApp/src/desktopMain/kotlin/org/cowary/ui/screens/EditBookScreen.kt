@@ -1,7 +1,5 @@
-package org.cowary.screen
+package org.cowary.ui.screens
 
-import air_tracker_desktop.composeapp.generated.resources.Res
-import air_tracker_desktop.composeapp.generated.resources.compose_multiplatform
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -14,24 +12,23 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import coil3.compose.AsyncImage
 import kotlinx.coroutines.launch
 import org.cowary.ApiService
-import org.jetbrains.compose.resources.painterResource
-import org.openapitools.client.models.AnimeDtoRq
 import org.openapitools.client.models.AnimeRs
+import org.openapitools.client.models.BookDtoRq
+import org.openapitools.client.models.BookDtoRs
 
-class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
+class EditBookScreen() : AirScreen(), Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val animeService = remember { ApiService() }
+        val bookService = remember { ApiService() }
 
         // Состояния для данных
-        var animeRs by remember { mutableStateOf<AnimeRs?>(null) }
-        var animeRq by remember { mutableStateOf<AnimeDtoRq?>(null) }
-        var isLoading by remember { mutableStateOf(true) }
+        var animeRs by remember { mutableStateOf<BookDtoRs?>(null) }
+        var animeRq by remember { mutableStateOf<BookDtoRq?>(null) }
+        var isLoading by remember { mutableStateOf(false) }
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var isSaving by remember { mutableStateOf(false) }
         var saveSuccess by remember { mutableStateOf(false) }
@@ -39,36 +36,25 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
         // Поля без редактирования
         var id by remember { mutableStateOf<Int?>(null) }
         var usrId by remember { mutableStateOf<Int?>(3) }
-//        var shikiId by remember { mutableStateOf<Int?>(null) }
         // Поля для редактирования
         var title by remember { mutableStateOf(TextFieldValue("")) }
-        var originalTitle by remember { mutableStateOf(TextFieldValue("")) }
         var status by remember { mutableStateOf(TextFieldValue("")) }
         var score by remember { mutableStateOf(TextFieldValue("")) }
-        var episodes by remember { mutableStateOf(TextFieldValue("")) }
-        var duration by remember { mutableStateOf(TextFieldValue("")) }
         var releaseDate by remember { mutableStateOf(TextFieldValue("")) }
-        var episodesEnd by remember { mutableStateOf(TextFieldValue("")) }
         var endDate by remember { mutableStateOf(TextFieldValue("")) }
-//        var endDate by remember { mutableStateOf(LocalDate.now()) }
+        var author by remember { mutableStateOf(TextFieldValue("")) }
 
         val coroutineScope = rememberCoroutineScope()
 
-        LaunchedEffect(integrationId) {
-            loadAnimeData(animeService, integrationId, { animeRs = it }, { isLoading = false }, { errorMessage = it })
-        }
 
         LaunchedEffect(animeRs) {
-            animeRs?.media?.let { media ->
-                title = TextFieldValue(media.title ?: "")
-                originalTitle = TextFieldValue(media.originalTitle ?: "")
-                status = TextFieldValue(media.status)
+            animeRs?.let { media ->
+                title = TextFieldValue(media.title?: "")
+                status = TextFieldValue(media.status ?: "")
                 score = TextFieldValue(media.score?.toString() ?: "")
-                episodes = TextFieldValue(media.episodes?.toString() ?: "")
-                duration = TextFieldValue(media.duration?.toString() ?: "")
                 releaseDate = TextFieldValue(media.releaseDate ?: "")
-                episodesEnd = TextFieldValue(media.episodesEnd?.toString() ?: "")
                 endDate = TextFieldValue(media.endDate ?: "")
+                author = TextFieldValue(media.author ?: "")
             }
         }
 
@@ -96,48 +82,40 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                         color = MaterialTheme.colorScheme.error
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(
-                        onClick = {
-                            isLoading = true
-                            errorMessage = null
-                            coroutineScope.launch {
-                                loadAnimeData(
-                                    animeService,
-                                    integrationId,
-                                    { animeRs = it },
-                                    { isLoading = false },
-                                    { errorMessage = it })
-                            }
-                        }
-                    ) {
-                        Text("Повторить")
-                    }
+//                    Button(
+//                        onClick = {
+//                            isLoading = true
+//                            errorMessage = null
+////                            coroutineScope.launch {
+////                                loadAnimeData(
+////                                    animeService,
+////                                    integrationId,
+////                                    { animeRs = it },
+////                                    { isLoading = false },
+////                                    { errorMessage = it })
+////                            }
+////                        }
+//                    ) {
+//                        Text("Повторить")
+//                    }
                 }
 
                 // Основная форма
                 else -> {
-
-                    AnimeEditForm(
-                        animeRs = animeRs,
-                        originalTitle = originalTitle,
-                        onOriginalTitleChange = { originalTitle = it },
+                    BookEditForm(
+                        gameRs = animeRs,
                         title = title,
                         onTitleChange = { title = it },
                         status = status,
                         onStatusChange = { status = it },
                         score = score,
                         onScoreChange = { score = it },
-                        episodes = episodes,
-                        onEpisodesChange = { episodes = it },
-                        duration = duration,
-                        onDurationChange = { duration = it },
                         releaseDate = releaseDate,
                         onReleaseDateChange = { releaseDate = it },
-                        episodesEnd = episodesEnd,
-                        onEpisodesEndChange = { episodesEnd = it },
-//                        endDate = endDate,
                         endDate = endDate,
                         onEndDateChange = { endDate = it },
+                        author = author,
+                        onAuthorChange = {author = it},
                         isSaving = isSaving,
                         saveSuccess = saveSuccess,
                         onSaveClick = {
@@ -145,22 +123,18 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                                 isSaving = true
                                 saveSuccess = false
 
-                                val updatedMedia = AnimeDtoRq(
-                                    originalTitle = originalTitle.text,
+                                val updatedMedia = BookDtoRq(
                                     title = title.text,
                                     status = status.text,
                                     releaseDate = releaseDate.text,
-                                    shikiId = integrationId.toInt(),
                                     usrId = usrId?.toLong()
                                         ?: throw IllegalStateException("User ID is missing"),
                                     score = score.text.toIntOrNull(),
-                                    episodes = episodes.text.toIntOrNull(),
-                                    duration = duration.text.toIntOrNull(),
-                                    episodesEnd = episodesEnd.text.toIntOrNull(),
                                     endDate = endDate.text,
+                                    author = author.text,
                                 )
 
-                                val success = animeService.saveAnime(updatedMedia)
+                                val success = bookService.saveBook(updatedMedia)
                                 isSaving = false
                                 saveSuccess = success
 
@@ -197,26 +171,20 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
     }
 
     @Composable
-    private fun AnimeEditForm(
-        animeRs: AnimeRs?,
-        originalTitle: TextFieldValue,
-        onOriginalTitleChange: (TextFieldValue) -> Unit,
+    private fun BookEditForm(
+        gameRs: BookDtoRs?,
         title: TextFieldValue,
         onTitleChange: (TextFieldValue) -> Unit,
         status: TextFieldValue,
         onStatusChange: (TextFieldValue) -> Unit,
         score: TextFieldValue,
         onScoreChange: (TextFieldValue) -> Unit,
-        episodes: TextFieldValue,
-        onEpisodesChange: (TextFieldValue) -> Unit,
-        duration: TextFieldValue,
-        onDurationChange: (TextFieldValue) -> Unit,
         releaseDate: TextFieldValue,
         onReleaseDateChange: (TextFieldValue) -> Unit,
-        episodesEnd: TextFieldValue,
-        onEpisodesEndChange: (TextFieldValue) -> Unit,
         endDate: TextFieldValue,
         onEndDateChange: (TextFieldValue) -> Unit,
+        author: TextFieldValue,
+        onAuthorChange: (TextFieldValue) -> Unit,
         isSaving: Boolean,
         saveSuccess: Boolean,
         onSaveClick: () -> Unit,
@@ -236,7 +204,7 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-                animeRs?.media?.title?.let { title ->
+                gameRs?.title?.let { title ->
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
@@ -249,14 +217,6 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                     value = title,
                     onValueChange = onTitleChange,
                     label = { Text("Название") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                OutlinedTextField(
-                    value = originalTitle,
-                    onValueChange = onOriginalTitleChange,
-                    label = { Text("Оригинальное название") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -277,21 +237,11 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
-                IntegerOnlyTextField(
-                    label = "Кол-во эпизодов",
-                    value = episodes.text,
-                    onValueChange = onEpisodesChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                IntegerOnlyTextField(
-                    label = "Длительность эпизода",
-                    value = duration.text,
-                    onValueChange = onDurationChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 1000
+                OutlinedTextField(
+                    value = author,
+                    onValueChange = onAuthorChange,
+                    label = { Text("Автор") },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
@@ -299,15 +249,6 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                     label = "Дата выхода",
                     selectedDate = releaseDate,
                     onDateSelected = onReleaseDateChange,
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                IntegerOnlyTextField(
-                    label = "Кол-во просмотренных эпизодов",
-                    value = episodesEnd.text,
-                    onValueChange = onEpisodesEndChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
@@ -351,46 +292,46 @@ class EditAnimeScreen(private val integrationId: Long) : AirScreen(), Screen {
                     }
                 }
             }
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                animeRs?.posterUrl?.let { posterUrl ->
-                    if (posterUrl.isNotEmpty()) {
-                        println("Получен URL постера: $posterUrl")
-                        println("Попытка загрузить изображение...")
-
-                        AsyncImage(
-                            model = animeRs.posterUrl,
-                            contentDescription = "Постер аниме",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(400.dp)
-                                .align(Alignment.CenterHorizontally),
-                            error = painterResource(Res.drawable.compose_multiplatform).also {
-                                println("Отображено изображение ошибки")
-                            },
-                            placeholder = painterResource(Res.drawable.compose_multiplatform).also {
-                                println("Отображено заполнительное изображение")
-                            },
-                            onSuccess = {
-                                println("Изображение успешно загружено:")
-                            },
-                            onError = { exception ->
-                                println("Ошибка загрузки изображения: $exception")
-                                exception.toString()
-                            }
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-                    } else {
-                        println("URL пустой или null")
-                    }
-                }
-            }
+//            Column(
+//                modifier = Modifier
+//                    .weight(1f)
+//                    .fillMaxHeight(),
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement.Center
+//            ) {
+//                gameRs?.posterUrl?.let { posterUrl ->
+//                    if (posterUrl.isNotEmpty()) {
+//                        println("Получен URL постера: $posterUrl")
+//                        println("Попытка загрузить изображение...")
+//
+//                        AsyncImage(
+//                            model = gameRs.posterUrl,
+//                            contentDescription = "Постер аниме",
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .height(400.dp)
+//                                .align(Alignment.CenterHorizontally),
+//                            error = painterResource(Res.drawable.compose_multiplatform).also {
+//                                println("Отображено изображение ошибки")
+//                            },
+//                            placeholder = painterResource(Res.drawable.compose_multiplatform).also {
+//                                println("Отображено заполнительное изображение")
+//                            },
+//                            onSuccess = {
+//                                println("Изображение успешно загружено:")
+//                            },
+//                            onError = { exception ->
+//                                println("Ошибка загрузки изображения: $exception")
+//                                exception.toString()
+//                            }
+//                        )
+//
+//                        Spacer(modifier = Modifier.height(16.dp))
+//                    } else {
+//                        println("URL пустой или null")
+//                    }
+//                }
+//            }
         }
     }
 }

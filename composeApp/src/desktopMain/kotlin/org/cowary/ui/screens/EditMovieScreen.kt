@@ -1,4 +1,4 @@
-package org.cowary.screen
+package org.cowary.ui.screens
 
 import air_tracker_desktop.composeapp.generated.resources.Res
 import air_tracker_desktop.composeapp.generated.resources.compose_multiplatform
@@ -18,19 +18,18 @@ import coil3.compose.AsyncImage
 import kotlinx.coroutines.launch
 import org.cowary.ApiService
 import org.jetbrains.compose.resources.painterResource
-import org.openapitools.client.models.MangaDtoRq
-import org.openapitools.client.models.MangaRs
+import org.openapitools.client.models.MovieDtoRq
+import org.openapitools.client.models.MovieRs
 
-class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
+class EditMovieScreen(private val integrationId: Long) : AirScreen(), Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val animeService = remember { ApiService() }
+        val movieService = remember { ApiService() }
 
         // Состояния для данных
-        var mangaRs by remember { mutableStateOf<MangaRs?>(null) }
-        var animeRq by remember { mutableStateOf<MangaDtoRq?>(null) }
+        var movieRs by remember { mutableStateOf<MovieRs?>(null) }
         var isLoading by remember { mutableStateOf(true) }
         var errorMessage by remember { mutableStateOf<String?>(null) }
         var isSaving by remember { mutableStateOf(false) }
@@ -38,39 +37,31 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
 
         // Поля без редактирования
         var id by remember { mutableStateOf<Int?>(null) }
-        var usrId by remember { mutableStateOf<Int?>(3) }
+        var usrId by remember { mutableStateOf<Int?>(null) }
 //        var shikiId by remember { mutableStateOf<Int?>(null) }
         // Поля для редактирования
         var title by remember { mutableStateOf(TextFieldValue("")) }
         var originalTitle by remember { mutableStateOf(TextFieldValue("")) }
         var status by remember { mutableStateOf(TextFieldValue("")) }
         var score by remember { mutableStateOf(TextFieldValue("")) }
-        var episodes by remember { mutableStateOf(TextFieldValue("")) }
         var duration by remember { mutableStateOf(TextFieldValue("")) }
         var releaseDate by remember { mutableStateOf(TextFieldValue("")) }
         var endDate by remember { mutableStateOf(TextFieldValue("")) }
-        var volumes by remember { mutableStateOf(TextFieldValue("")) }
-        var chapters by remember { mutableStateOf(TextFieldValue("")) }
-        var volumesEnd by remember { mutableStateOf(TextFieldValue("")) }
-        var chaptersEnd by remember { mutableStateOf(TextFieldValue("")) }
-//        var endDate by remember { mutableStateOf(LocalDate.now()) }
 
         val coroutineScope = rememberCoroutineScope()
 
         LaunchedEffect(integrationId) {
-            loadMangaData(animeService, integrationId, { mangaRs = it }, { isLoading = false }, { errorMessage = it })
+            loadMovieData(movieService, integrationId, { movieRs = it }, { isLoading = false }, { errorMessage = it })
         }
 
-        LaunchedEffect(mangaRs) {
-            mangaRs?.media?.let { media ->
-                title = TextFieldValue(media.title ?: "")
+        LaunchedEffect(movieRs) {
+            movieRs?.media?.let { media ->
+                title = TextFieldValue(media.title?: "")
                 originalTitle = TextFieldValue(media.originalTitle ?: "")
-                status = TextFieldValue(media.status ?: "")
+                status = TextFieldValue(media.status?: "")
                 score = TextFieldValue(media.score?.toString() ?: "")
-                releaseDate = TextFieldValue(media.releaseDate ?: "")
+                duration = TextFieldValue(media.duration?.toString() ?: "")
                 endDate = TextFieldValue(media.endDate ?: "")
-                volumes = TextFieldValue(media.volumes?.toString() ?: "")
-                chapters = TextFieldValue(media.chapters?.toString() ?: "")
             }
         }
 
@@ -79,7 +70,7 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                 .fillMaxSize()
         ) {
             TopAppBar(
-                title = { Text("Редактирование аниме") },
+                title = { Text("Редактирование фильма") },
                 navigationIcon = {
                     IconButton(onClick = { navigator.pop() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Назад")
@@ -103,10 +94,10 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                             isLoading = true
                             errorMessage = null
                             coroutineScope.launch {
-                                loadMangaData(
-                                    animeService,
+                                loadMovieData(
+                                    movieService,
                                     integrationId,
-                                    { mangaRs = it },
+                                    { movieRs = it },
                                     { isLoading = false },
                                     { errorMessage = it })
                             }
@@ -118,9 +109,8 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
 
                 // Основная форма
                 else -> {
-
-                    MangaEditForm(
-                        mangaRs = mangaRs,
+                    MovieEditForm(
+                        movieRs = movieRs,
                         originalTitle = originalTitle,
                         onOriginalTitleChange = { originalTitle = it },
                         title = title,
@@ -129,18 +119,12 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                         onStatusChange = { status = it },
                         score = score,
                         onScoreChange = { score = it },
+                        duration = duration,
+                        onDurationChange = { duration = it },
                         releaseDate = releaseDate,
                         onReleaseDateChange = { releaseDate = it },
                         endDate = endDate,
                         onEndDateChange = { endDate = it },
-                        volumes = volumes,
-                        onVolumesChange = { volumes = it },
-                        chapters = chapters,
-                        onChaptersChange = { chapters = it },
-                        volumesEnd = volumesEnd,
-                        onVolumesEndChange = { volumesEnd = it },
-                        chaptersEnd = chaptersEnd,
-                        onChaptersEndChange = { chaptersEnd = it },
                         isSaving = isSaving,
                         saveSuccess = saveSuccess,
                         onSaveClick = {
@@ -148,23 +132,9 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                                 isSaving = true
                                 saveSuccess = false
 
-                                val updatedMedia = MangaDtoRq(
-                                    originalTitle = originalTitle.text,
-                                    title = title.text,
-                                    status = status.text,
-                                    releaseDate = releaseDate.text,
-                                    shikiId = integrationId.toInt(),
-                                    usrId = usrId?.toLong()
-                                        ?: throw IllegalStateException("User ID is missing"),
-                                    score = score.text.toIntOrNull(),
-                                    volumes = volumes.text.toIntOrNull(),
-                                    chapters = chapters.text.toIntOrNull(),
-                                    volumesEnd = volumesEnd.text.toIntOrNull(),
-                                    chaptersEnd = chaptersEnd.text.toIntOrNull(),
-                                    endDate = endDate.text,
-                                )
+                              val updatedMedia  = MovieDtoRq(title = title.text, status = status.text, score = score.text.toInt(), releaseYear = releaseDate.text.toInt(), originalTitle = originalTitle.text, endDate = endDate.text, duration = duration.text.toIntOrNull(), integrationId = integrationId.toInt())
 
-                                val success = animeService.saveManga(updatedMedia)
+                                val success = movieService.saveMovie(updatedMedia)
                                 isSaving = false
                                 saveSuccess = success
 
@@ -182,17 +152,16 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
         }
     }
 
-    // Функция загрузки данных
-    suspend fun loadMangaData(
+    suspend fun loadMovieData(
         service: ApiService,
         id: Long,
-        onSuccess: (MangaRs) -> Unit,
+        onSuccess: (MovieRs) -> Unit,
         onLoadingComplete: () -> Unit,
         onError: (String) -> Unit
     ) {
         try {
-            val mangaRs = service.getManga(id.toInt())
-            onSuccess(mangaRs)
+            val movieRs = service.getMovie(id.toInt())
+            onSuccess(movieRs)
         } catch (e: Exception) {
             onError(e.message ?: "Неизвестная ошибка")
         } finally {
@@ -201,8 +170,8 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
     }
 
     @Composable
-    private fun MangaEditForm(
-        mangaRs: MangaRs?,
+    private fun MovieEditForm(
+        movieRs: MovieRs?,
         originalTitle: TextFieldValue,
         onOriginalTitleChange: (TextFieldValue) -> Unit,
         title: TextFieldValue,
@@ -211,18 +180,12 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
         onStatusChange: (TextFieldValue) -> Unit,
         score: TextFieldValue,
         onScoreChange: (TextFieldValue) -> Unit,
+        duration: TextFieldValue,
+        onDurationChange: (TextFieldValue) -> Unit,
         releaseDate: TextFieldValue,
         onReleaseDateChange: (TextFieldValue) -> Unit,
         endDate: TextFieldValue,
         onEndDateChange: (TextFieldValue) -> Unit,
-        volumes: TextFieldValue,
-        onVolumesChange: (TextFieldValue) -> Unit,
-        chapters: TextFieldValue,
-        onChaptersChange: (TextFieldValue) -> Unit,
-        volumesEnd: TextFieldValue,
-        onVolumesEndChange: (TextFieldValue) -> Unit,
-        chaptersEnd: TextFieldValue,
-        onChaptersEndChange: (TextFieldValue) -> Unit,
         isSaving: Boolean,
         saveSuccess: Boolean,
         onSaveClick: () -> Unit,
@@ -242,7 +205,7 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-                mangaRs?.media?.title?.let { title ->
+                movieRs?.media?.title?.let { title ->
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
@@ -284,50 +247,25 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 IntegerOnlyTextField(
-                    label = "Кол-во томов",
-                    value = volumes.text,
-                    onValueChange = onVolumesChange,
+                    label = "Длительность эпизода",
+                    value = duration.text,
+                    onValueChange = onDurationChange,
                     modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
+                    maxValue = 1000
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
                 IntegerOnlyTextField(
-                    label = "Кол-во томов закончено",
-                    value = volumesEnd.text,
-                    onValueChange = onVolumesEndChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                IntegerOnlyTextField(
-                    label = "Кол-во глав",
-                    value = chapters.text,
-                    onValueChange = onChaptersChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                IntegerOnlyTextField(
-                    label = "Кол-во глав закончено",
-                    value = chaptersEnd.text,
-                    onValueChange = onChaptersEndChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    maxValue = 10000
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                DateSelectionField(
                     label = "Дата выхода",
-                    selectedDate = releaseDate,
-                    onDateSelected = onReleaseDateChange,
+                    value = releaseDate.text,
+                    onValueChange = onReleaseDateChange,
+                    modifier = Modifier.fillMaxWidth(),
+                    maxValue = 10000
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
                 DateSelectionField(
-                    label = "Дата окончания прочтения:",
+                    label = "Дата окончания просмотра:",
                     selectedDate = endDate,
                     onDateSelected = onEndDateChange
                 )
@@ -373,14 +311,14 @@ class EditMangaScreen(private val integrationId: Long) : AirScreen(), Screen {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                mangaRs?.posterUrl?.let { posterUrl ->
+                movieRs?.posterUrl?.let { posterUrl ->
                     if (posterUrl.isNotEmpty()) {
                         println("Получен URL постера: $posterUrl")
                         println("Попытка загрузить изображение...")
 
                         AsyncImage(
-                            model = mangaRs.posterUrl,
-                            contentDescription = "Постер аниме",
+                            model = movieRs.posterUrl,
+                            contentDescription = "Постер фильма",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(400.dp)

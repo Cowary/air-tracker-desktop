@@ -1,4 +1,4 @@
-package org.cowary.screen
+package org.cowary.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

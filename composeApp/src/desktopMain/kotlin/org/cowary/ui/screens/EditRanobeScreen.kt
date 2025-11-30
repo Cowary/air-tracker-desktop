@@ -1,4 +1,4 @@
-package org.cowary.screen
+package org.cowary.ui.screens
 
 import air_tracker_desktop.composeapp.generated.resources.Res
 import air_tracker_desktop.composeapp.generated.resources.compose_multiplatform
